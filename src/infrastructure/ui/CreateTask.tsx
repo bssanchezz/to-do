@@ -13,6 +13,7 @@ const CreateTask: Component<Props> = (props) => {
   const [id, setId] = createSignal(1)
 
   const addTaskToList = () => {
+    if (!input()) return;
     props.addTask(id(), input(), props.taskList, props.setTaskList);
     onInput("");
     setId(id() + 1)
@@ -20,10 +21,10 @@ const CreateTask: Component<Props> = (props) => {
 
   return (
     <>
-      <div>
-        <label for="create-task">Create a task</label>
-        <input type="text" id="create-task" onInput={(e) => onInput(e.currentTarget.value)} value={input()} />
-        <button onClick={addTaskToList}>Create</button>
+      <div class="flex flex-row items-center justify-around">
+        <label class="text-xl" for="create-task">Create a task</label>
+        <input type="text" id="create-task" class="h-8 rounded-lg" onInput={(e) => onInput(e.currentTarget.value)} value={input()} />
+        <button class="btn btn-primary" onClick={addTaskToList}>Create</button>
       </div >
     </>
   );

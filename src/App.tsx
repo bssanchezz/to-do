@@ -11,14 +11,16 @@ const App: Component = () => {
   const taskService = new TaskService();
 
   return (
-    <div>
-      <Header />
-      <CreateTask addTask={taskService.addTask} taskList={taskList} setTaskList={setTaskList}/>
-      <TaskList
-        taskList={taskService.getTasks(taskList)}
-        toggleTask={taskService.toggleTask}
-        setTaskList={setTaskList}
-      />
+    <div class="prose container mx-auto min-h-full flex flex-column items-center">
+      <div class="w-[400px]">
+        <Header />
+        <CreateTask addTask={taskService.addTask} taskList={taskList} setTaskList={setTaskList}/>
+        <TaskList
+          taskList={taskService.getTasks(taskList)}
+          toggleTask={taskService.toggleTask}
+          setTaskList={setTaskList}
+        />
+      </div>
     </div >
   );
 };

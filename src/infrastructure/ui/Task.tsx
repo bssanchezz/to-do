@@ -8,10 +8,10 @@ type Props = {
 };
 
 const Task: Component<Props> = (props) => {
-  console.log(props.task)
+  console
   return (
     <div>
-      <span style={{ "text-decoration": props.task.completed ? "line-through" : "none" }}>{props.task.text}</span>
+      <span class="text-lg pr-4" style={{ "text-decoration": props.task.completed ? "line-through" : "none" }}>{props.task.text}</span>
       <input
         type="checkbox"
         checked={props.task.completed}
