@@ -1,19 +1,21 @@
 import type { Component } from 'solid-js';
 import { createSignal } from 'solid-js';
-import { taskServices } from '../../usecases/taskServices';
-import TaskList from './TaskList';
-import { createTaskService } from '../../usecases/createTaskService';
-export const [task, setTask] = createSignal<string>("");
-const CreateTask: Component = () => {
+import TaskObject from '../../domain/task';
+
+type Props = {
+  addTask: (id: number, text: string, taskList: TaskObject[], setTaskList: (taskList: TaskObject[]) => void) => void;
+  taskList: TaskObject[],
+  setTaskList: (taskList: TaskObject[]) => void
+};
+
+const CreateTask: Component<Props> = (props) => {
   const [input, onInput] = createSignal<string>("");
-
-  const { serviceAddTask, serviceToggleTask, serviceGetTasks } = taskServices();
-
-  //const { addTask, toggleTask, getTasks } = createTaskService();
+  const [id, setId] = createSignal(1)
 
   const addTaskToList = () => {
-    serviceAddTask(input());
+    props.addTask(id(), input(), props.taskList, props.setTaskList);
     onInput("");
+    setId(id() + 1)
   };
 
   return (
@@ -22,7 +24,6 @@ const CreateTask: Component = () => {
         <label for="create-task">Create a task</label>
         <input type="text" id="create-task" onInput={(e) => onInput(e.currentTarget.value)} value={input()} />
         <button onClick={addTaskToList}>Create</button>
-        <TaskList taskList={serviceGetTasks()} toggleTask={serviceToggleTask} />
       </div >
     </>
   );
