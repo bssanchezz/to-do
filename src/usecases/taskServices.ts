@@ -6,11 +6,11 @@ export class TaskService implements TaskServiceInterface {
     setTaskList([...taskList, { id, text, completed: false }]);
   }
 
-  toggleTask(id: number, setTaskList: (task: any, text: string, completed: any) => void): void {
+  toggleTask(id: number, setTaskList: (task: (task: TaskObject) => boolean, text: string, completed: (prevCompleted: boolean) => boolean) => void): void {
     setTaskList(
-      (task) => task.id === id,
+      (task: TaskObject) => task.id === id,
       "completed",
-      (completed) => !completed
+      (completed: boolean) => !completed
     );
   }
 
