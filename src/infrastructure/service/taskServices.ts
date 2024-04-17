@@ -1,4 +1,4 @@
-import TaskObject from "../../domain/task";
+import TaskObject from "../../domain/taskObject";
 
 export interface TaskServiceInterface {
   addTask(id: number, text: string, taskList: TaskObject[], setTaskList: (taskList: TaskObject[]) => void): void;

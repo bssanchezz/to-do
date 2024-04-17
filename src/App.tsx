@@ -1,7 +1,7 @@
 import type { Component } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { TaskService } from './infrastructure/service/taskServices';
-import TaskObject from './domain/task';
+import TaskObject from './domain/taskObject';
 import Header from './infrastructure/ui/header/CustomHeader';
 import CreateTask from './infrastructure/ui/CreateTask';
 import TaskList from './infrastructure/ui/TaskList';

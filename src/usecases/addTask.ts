@@ -1,4 +1,4 @@
-import TaskObject from "../domain/task";
+import TaskObject from "../domain/taskObject";
 import { TaskService } from "../infrastructure/service/taskServices";
 
 export interface addTaskInterface {

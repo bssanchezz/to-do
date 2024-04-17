@@ -1,7 +1,7 @@
 import type { Component } from 'solid-js';
 import { For } from 'solid-js';
 import Task from './Task';
-import TaskObject from '../../domain/task';
+import TaskObject from '../../domain/taskObject';
 import { TaskService } from '../service/taskServices';
 
 type Props = {

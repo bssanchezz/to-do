@@ -1,5 +1,5 @@
 import type { Component } from 'solid-js';
-import TaskObject from '../../domain/task';
+import TaskObject from '../../domain/taskObject';
 
 type Props = {
   task: TaskObject;

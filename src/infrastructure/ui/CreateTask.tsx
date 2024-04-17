@@ -1,6 +1,6 @@
 import type { Component } from 'solid-js';
 import { createSignal } from 'solid-js';
-import TaskObject from '../../domain/task';
+import TaskObject from '../../domain/taskObject';
 import { AddTask } from '../../usecases/addTask';
 import { TaskService } from '../service/taskServices';
 
