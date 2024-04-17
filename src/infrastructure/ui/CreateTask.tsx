@@ -1,33 +1,53 @@
-import type { Component } from 'solid-js';
-import { createSignal } from 'solid-js';
+import { Component, Setter, createSignal } from 'solid-js';
+import { SetStoreFunction } from 'solid-js/store';
+
 import TaskObject from '../../domain/taskObject';
-import { AddTask } from '../../usecases/addTask';
-import { TaskService } from '../service/taskServices';
+
+import { TaskPersistenceServiceInterface, TaskPersistenceService } from '../service/taskPersistenceService';
+import { AddTaskInterface, AddTask } from '../../usecases/addTask';
 
 type Props = {
-  taskService: TaskService,
-  taskList: TaskObject[],
-  setTaskList: (taskList: TaskObject[]) => void
+  setRefresh: Setter<boolean>
+  tasksStore: TaskObject[]
+  setTasksStore: SetStoreFunction<TaskObject[]>;
 };
 
-const CreateTask: Component<Props> = (props) => {
+const CreateTask: Component<Props> = (props: Props) => {
+
+  const { setRefresh, tasksStore, setTasksStore } = props;
+
   const [input, onInput] = createSignal<string>("");
   const [id, setId] = createSignal(1)
-  const addTask = new AddTask(props.taskService);
 
-  const addTaskToList = () => {
+  const addTaskToList = (e: SubmitEvent) => {
+    e.preventDefault();
+
     if (!input()) return;
-    addTask.addTask(id(), input(), props.taskList, props.setTaskList);
-    onInput("");
-    setId(id() + 1)
+
+    const taskService: TaskPersistenceServiceInterface = new TaskPersistenceService();
+    const addTask_: AddTaskInterface = new AddTask(taskService);
+    try {
+      addTask_.execute(id(), input());
+
+      setTasksStore([...tasksStore, { id: id(), text: input(), completed: false }]);
+
+      setRefresh(true);
+      onInput("");
+      setId(id() + 1);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <>
       <div class="flex flex-row items-center justify-around">
         <label class="text-xl" for="create-task">Create a task</label>
-        <input type="text" id="create-task" class="h-8 rounded-lg" onInput={(e) => onInput(e.currentTarget.value)} value={input()} />
-        <button class="btn btn-primary" onClick={addTaskToList}>Create</button>
+        <form onsubmit={addTaskToList}>
+          <input type="text" id="create-task" class="h-8 rounded-lg"
+            onInput={(e) => onInput(e.currentTarget.value)} value={input()} />
+          <button class="btn btn-primary" type='submit' >Create</button>
+        </form>
       </div >
     </>
   );

@@ -1,7 +1,7 @@
-type Task = {
+type TaskObject = {
   id: number;
   text: string;
   completed: boolean;
 }
 
-export default Task;
+export default TaskObject;

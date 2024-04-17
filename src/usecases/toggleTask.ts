@@ -1,21 +1,18 @@
 import TaskObject from "../domain/taskObject";
-import { TaskService } from "../infrastructure/service/taskServices";
+import { TaskPersistenceServiceInterface } from "../infrastructure/service/taskPersistenceService";
 
 export interface ToggleTaskInterface {
-  toggleTask(id: number, setTaskList: (task: (task: TaskObject) => boolean, text: string, completed: (prevCompleted: boolean) => boolean) => void): void;
+  toggleTask(id: number): void;
 }
 
 export class ToggleTask implements ToggleTaskInterface {
-  private taskService: TaskService;
+  private taskService: TaskPersistenceServiceInterface;
 
-  constructor(taskService: TaskService) {
+  constructor(taskService: TaskPersistenceServiceInterface) {
     this.taskService = taskService;
   }
 
-  toggleTask(id: number, setTaskList: (task: (task: TaskObject) => boolean, text: string, completed: (prevCompleted: boolean) => boolean) => void): void {
-    this.taskService.toggleTask(
-      id,
-      setTaskList
-    );
+  toggleTask(id: number): void {
+    this.taskService.toggleTask(id);
   }
 }

@@ -1,18 +1,18 @@
 import TaskObject from "../domain/taskObject";
-import { TaskService } from "../infrastructure/service/taskServices";
+import { TaskPersistenceServiceInterface } from "../infrastructure/service/taskPersistenceService";
 
-export interface addTaskInterface {
-  addTask(id: number, text: string, taskList: TaskObject[], setTaskList: (taskList: TaskObject[]) => void): void;
+export interface AddTaskInterface {
+  execute(id: number, text: string): void;
 }
 
-export class AddTask implements addTaskInterface {
-  private taskService: TaskService;
+export class AddTask implements AddTaskInterface {
+  private taskService: TaskPersistenceServiceInterface;
 
-  constructor(taskService: TaskService) {
+  constructor(taskService: TaskPersistenceServiceInterface) {
     this.taskService = taskService;
   }
 
-  addTask(id: number, text: string, taskList: TaskObject[], setTaskList: (taskList: TaskObject[]) => void): void {
-    this.taskService.addTask(id, text, taskList, setTaskList);
+  execute(id: number, text: string): void {
+    this.taskService.addTask(id, text);
   }
 }

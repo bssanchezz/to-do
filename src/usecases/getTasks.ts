@@ -1,18 +1,18 @@
 import TaskObject from "../domain/taskObject";
-import { TaskService } from "../infrastructure/service/taskServices";
+import { TaskPersistenceServiceInterface } from "../infrastructure/service/taskPersistenceService";
 
 export interface GetTaskInterface {
-  getTasks(taskList: TaskObject[]): TaskObject[];
+  getTasks(): TaskObject[];
 }
 
 export class GetTasks implements GetTaskInterface {
-  private taskService: TaskService;
+  private taskService: TaskPersistenceServiceInterface;
 
-  constructor(taskService: TaskService) {
+  constructor(taskService: TaskPersistenceServiceInterface) {
     this.taskService = taskService;
   }
 
-  getTasks(taskList: TaskObject[]): TaskObject[] {
-    return this.taskService.getTasks(taskList);
+  getTasks(): TaskObject[] {
+    return this.taskService.getTasks();
   }
 }
