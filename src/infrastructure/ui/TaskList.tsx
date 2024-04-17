@@ -5,8 +5,8 @@ import TaskObject from '../../domain/task';
 
 type Props = {
   taskList: Array<TaskObject>;
-  toggleTask: (id: number,  setTaskList: (taskList: TaskObject[]) => void) => void;
-  setTaskList: (taskList: TaskObject[]) => void
+  toggleTask: (id: number, setTaskList: (task: (task: TaskObject) => boolean, text: string, completed: (prevCompleted: boolean) => boolean) => void) => void;
+  setTaskList: (task: (task: TaskObject) => boolean, text: string, completed: (prevCompleted: boolean) => boolean) => void
 }
 
 const TaskList: Component<Props> = (props) => {
@@ -14,7 +14,7 @@ const TaskList: Component<Props> = (props) => {
     <div>
       <h3>Tasks</h3>
       <For each={props.taskList} fallback={<div>No Tasks</div>}>
-        {(item) => <Task task={item} toggleTask={props.toggleTask} setTaskList={props.setTaskList}/>}
+        {(item) => <Task task={item} toggleTask={props.toggleTask} setTaskList={props.setTaskList} />}
       </For>
     </div>
   );

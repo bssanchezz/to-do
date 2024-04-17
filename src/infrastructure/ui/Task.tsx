@@ -3,8 +3,8 @@ import TaskObject from '../../domain/task';
 
 type Props = {
   task: TaskObject;
-  toggleTask: (id: number, setTaskList: (taskList: TaskObject[]) => void) => void;
-  setTaskList: (taskList: TaskObject[]) => void
+  toggleTask: (id: number, setTaskList: (task: (task: TaskObject) => boolean, text: string, completed: (prevCompleted: boolean) => boolean) => void) => void;
+  setTaskList: (task: (task: TaskObject) => boolean, text: string, completed: (prevCompleted: boolean) => boolean) => void
 };
 
 const Task: Component<Props> = (props) => {
