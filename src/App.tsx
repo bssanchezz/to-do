@@ -1,6 +1,6 @@
 import type { Component } from 'solid-js';
 import { createStore } from 'solid-js/store';
-import { TaskService } from './usecases/taskServices';
+import { TaskService } from './infrastructure/service/taskServices';
 import TaskObject from './domain/task';
 import Header from './infrastructure/ui/header/CustomHeader';
 import CreateTask from './infrastructure/ui/CreateTask';
@@ -14,10 +14,10 @@ const App: Component = () => {
     <div class="prose container mx-auto min-h-full flex flex-column items-center">
       <div class="w-[400px]">
         <Header />
-        <CreateTask addTask={taskService.addTask} taskList={taskList} setTaskList={setTaskList}/>
+        <CreateTask taskService={taskService} taskList={taskList} setTaskList={setTaskList} />
         <TaskList
           taskList={taskService.getTasks(taskList)}
-          toggleTask={taskService.toggleTask}
+          taskService={taskService}
           setTaskList={setTaskList}
         />
       </div>

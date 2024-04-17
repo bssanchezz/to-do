@@ -1,5 +1,10 @@
-import { TaskServiceInterface } from "../domain/taskInterface";
-import TaskObject from "../domain/task";
+import TaskObject from "../../domain/task";
+
+export interface TaskServiceInterface {
+  addTask(id: number, text: string, taskList: TaskObject[], setTaskList: (taskList: TaskObject[]) => void): void;
+  toggleTask(id: number, setTaskList: (task: (task: TaskObject) => boolean, text: string, completed: (prevCompleted: boolean) => boolean) => void): void;
+  getTasks(taskList: TaskObject[]): TaskObject[];
+}
 
 export class TaskService implements TaskServiceInterface {
   addTask(id: number, text: string, taskList: TaskObject[], setTaskList: (taskList: TaskObject[]) => void): void {

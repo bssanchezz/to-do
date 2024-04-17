@@ -1,9 +1,11 @@
 import type { Component } from 'solid-js';
 import { createSignal } from 'solid-js';
 import TaskObject from '../../domain/task';
+import { AddTask } from '../../usecases/addTask';
+import { TaskService } from '../service/taskServices';
 
 type Props = {
-  addTask: (id: number, text: string, taskList: TaskObject[], setTaskList: (taskList: TaskObject[]) => void) => void;
+  taskService: TaskService,
   taskList: TaskObject[],
   setTaskList: (taskList: TaskObject[]) => void
 };
@@ -11,10 +13,11 @@ type Props = {
 const CreateTask: Component<Props> = (props) => {
   const [input, onInput] = createSignal<string>("");
   const [id, setId] = createSignal(1)
+  const addTask = new AddTask(props.taskService);
 
   const addTaskToList = () => {
     if (!input()) return;
-    props.addTask(id(), input(), props.taskList, props.setTaskList);
+    addTask.addTask(id(), input(), props.taskList, props.setTaskList);
     onInput("");
     setId(id() + 1)
   };
